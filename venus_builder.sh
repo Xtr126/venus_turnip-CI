@@ -7,7 +7,7 @@ deps="meson ninja patchelf unzip curl pip flex bison zip"
 workdir="$(pwd)/workdir"
 magiskdir="$workdir/venus_module"
 ndkver="android-ndk-r27c"
-sdkver="34"
+sdkver="33"
 mesasrc="https://codeload.github.com/android-generic/external_mesa/zip/refs/heads/24.3_prebuilt-intel-shaders"
 clear
 
