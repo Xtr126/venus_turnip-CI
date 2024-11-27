@@ -1,12 +1,10 @@
-name: Build "turnip"
+name: Build "venus"
 
 on:
   workflow_dispatch:
-  schedule:
-  - cron: "20 5 1,15 * *"
 
 jobs:
-  start_building_turnip:
+  start_building:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
@@ -21,22 +19,21 @@ jobs:
         sudo apt install meson
 
     - name: Execute build script
-      run: bash ./turnip_builder.sh
+      run: bash ./venus_builder.sh
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         name: Upload meson and ninja logs for debugging
         path: |
-          turnip_workdir/ninja_log
-          turnip_workdir/mesa-main/build-android-aarch64/meson-logs/meson-log.txt
+          workdir/ninja_log
+          workdir/mesa-main/build-android-aarch64/meson-logs/meson-log.txt
 
-    - name: Release "turnip"
+    - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        body: Turnip magisk module and driver package for adrenotools
+        body: Venus magisk module 
         tag_name: github_run
         name: Weekly Action Release
         files: |
-           turnip_workdir/turnip.zip
-           turnip_workdir/turnip_adrenotools.zip
+           workdir/vulkan-virtio.zip
