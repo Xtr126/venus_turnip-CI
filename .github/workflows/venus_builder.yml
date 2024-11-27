@@ -14,6 +14,7 @@ jobs:
         sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
         sudo apt update
         sudo apt build-dep mesa -y
+        sudo apt install libdrm-dev
 
     - name: Execute build script
       run: bash ./venus_builder.sh
