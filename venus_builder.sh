@@ -118,6 +118,7 @@ port_lib_for_magisk(){
 	cp "$workdir"/mesa-24.3/build-android-x86_64/src/virtio/vulkan/libvulkan_virtio.so "$workdir"
 	cd "$workdir"
 	patchelf --set-soname vulkan.virtio.so libvulkan_virtio.so
+	patchelf --replace-needed libdrm.so.2 libdrm.so libvulkan_virtio.so
 	mv libvulkan_virtio.so vulkan.virtio.so
 
 	if ! [ -a vulkan.virtio.so ]; then
