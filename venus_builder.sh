@@ -59,7 +59,7 @@ prepare_workdir(){
 	###
 	echo "Exracting mesa source to a folder ..." $'\n'
 	unzip mesa-24.3.zip &> /dev/null
-	cd mesa-24.3
+ 	cd external_mesa-24.3_prebuilt-intel-shaders 
 }
 
 
