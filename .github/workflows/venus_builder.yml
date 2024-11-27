@@ -18,19 +18,11 @@ jobs:
     - name: Execute build script
       run: bash ./venus_builder.sh
 
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: Upload meson and ninja logs for debugging
-        path: |
-          workdir/ninja_log
-          workdir/mesa-main/build-android-aarch64/meson-logs/meson-log.txt
-
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         body: Venus magisk module 
         tag_name: github_run
-        name: Weekly Action Release
+        name: Nightly Action Release
         files: |
            workdir/vulkan-virtio.zip

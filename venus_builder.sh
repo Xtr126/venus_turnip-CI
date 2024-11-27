@@ -39,7 +39,7 @@ check_deps(){
 		fi
 
 	echo "Installing python Mako dependency (if missing) ..." $'\n'
-	pip install mako &> /dev/null
+	pip install mako 
 }
 
 
@@ -59,7 +59,8 @@ prepare_workdir(){
 	###
 	echo "Exracting mesa source to a folder ..." $'\n'
 	unzip mesa-24.3.zip &> /dev/null
- 	cd external_mesa-24.3_prebuilt-intel-shaders 
+ 	mv external_mesa-24.3_prebuilt-intel-shaders mesa-24.3
+	cd mesa-24.3
 }
 
 
@@ -86,7 +87,7 @@ EOF
 
 	echo "Generating build files ..." $'\n'
 	meson setup build-android-x86_64 \
- 		--cross-file "$workdir"/mesa-main/android-x86_64 \
+ 		--cross-file "$workdir"/mesa-24.3/android-x86_64 \
    -Dbuildtype=release -Dplatforms=android \
    -Dplatform-sdk-version=$sdkver \
    -Dandroid-stub=true \
@@ -98,10 +99,10 @@ EOF
    -Dcpp_rtti=false \
    -Dvideo-codecs= \
    -Dzstd=disabled \
-   -Dexpat=disabled &> "$workdir"/meson_log
+   -Dexpat=disabled 
 
 	echo "Compiling build files ..." $'\n'
-	ninja -C build-android-x86_64 &> "$workdir"/ninja_log
+	ninja -C build-android-x86_64
 }
 
 
