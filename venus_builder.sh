@@ -69,37 +69,43 @@ build_lib_for_android(){
 	echo "Creating meson cross file ..." $'\n'
 	ndk="$workdir/$ndkver/toolchains/llvm/prebuilt/linux-x86_64/bin"
 
-	cat <<EOF >"android-x86_64"
-[binaries]
-ar = '$ndk/llvm-ar'
-c = ['ccache', '$ndk/x86_64-linux-android$sdkver-clang']
-cpp = ['ccache', '$ndk/x86_64-linux-android$sdkver-clang++', '-fno-exceptions', '-fno-unwind-tables', '-fno-asynchronous-unwind-tables', '-static-libstdc++']
-c_ld = 'lld'
-cpp_ld = 'lld'
-strip = '$ndk/x86_64-linux-android-strip'
-pkg-config = ['/usr/bin/pkg-config']
-[host_machine]
-system = 'android'
-cpu_family = 'x86_64'
-cpu = 'x86_64'
-endian = 'little'
-EOF
+	cat <<EOF > "android-x86_64"
+		[binaries]
+		ar = '$ndk/llvm-ar'
+		c = ['ccache', '$ndk/x86_64-linux-android$sdkver-clang']
+		cpp = ['ccache', '$ndk/x86_64-linux-android$sdkver-clang++', '-fno-exceptions', '-fno-unwind-tables', '-fno-asynchronous-unwind-tables', '-static-libstdc++']
+		c_ld = 'lld'
+		cpp_ld = 'lld'
+		strip = '$ndk/x86_64-linux-android-strip'
+		pkg-config = ['/usr/bin/pkg-config']
+		[host_machine]
+		system = 'android'
+		cpu_family = 'x86_64'
+		cpu = 'x86_64'
+		endian = 'little'
+	EOF
+
+	ln -s \
+		/usr/include/xf86drm.h \
+		/usr/include/libsync.h \
+		/usr/include/libdrm \
+		"$workdir/$ndkver/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/
 
 	echo "Generating build files ..." $'\n'
 	meson setup build-android-x86_64 \
  		--cross-file "$workdir"/mesa-24.3/android-x86_64 \
-   -Dbuildtype=release -Dplatforms=android \
-   -Dplatform-sdk-version=$sdkver \
-   -Dandroid-stub=true \
-   -Dgallium-drivers= \
-   -Dvulkan-drivers=virtio \
-   -Dvulkan-beta=true \
-   -Db_lto=true \
-   -Dstrip=true \
-   -Dcpp_rtti=false \
-   -Dvideo-codecs= \
-   -Dzstd=disabled \
-   -Dexpat=disabled 
+		-Dbuildtype=release -Dplatforms=android \
+		-Dplatform-sdk-version=$sdkver \
+		-Dandroid-stub=true \
+		-Dgallium-drivers= \
+		-Dvulkan-drivers=virtio \
+		-Dvulkan-beta=true \
+		-Db_lto=true \
+		-Dstrip=true \
+		-Dcpp_rtti=false \
+		-Dvideo-codecs= \
+		-Dzstd=disabled \
+		-Dexpat=disabled 
 
 	echo "Compiling build files ..." $'\n'
 	ninja -C build-android-x86_64
