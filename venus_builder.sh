@@ -89,7 +89,7 @@ build_lib_for_android(){
 		/usr/include/xf86drm.h \
 		/usr/include/libsync.h \
 		/usr/include/libdrm \
-		"$workdir/$ndkver/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/
+		"$workdir/$ndkver/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/"
 
 	echo "Generating build files ..." $'\n'
 	meson setup build-android-x86_64 \
