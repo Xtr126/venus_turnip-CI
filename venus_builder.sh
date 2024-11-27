@@ -109,7 +109,7 @@ EOF
 
 port_lib_for_magisk(){
 	echo "Using patchelf to match soname ..."  $'\n'
-	cp "$workdir"/mesa-main/build-android-x86_64/src/virtio/vulkan/libvulkan_virtio.so "$workdir"
+	cp "$workdir"/mesa-24.3/build-android-x86_64/src/virtio/vulkan/libvulkan_virtio.so "$workdir"
 	cd "$workdir"
 	patchelf --set-soname vulkan.virtio.so libvulkan_virtio.so
 	mv libvulkan_virtio.so vulkan.virtio.so
@@ -146,7 +146,7 @@ EOF
 	cat <<EOF >"module.prop"
 id=turnip
 name=turnip
-version=$(cat $workdir/mesa-main/VERSION)
+version=$(cat $workdir/mesa-24.3/VERSION)
 versionCode=1
 author=MrMiy4mo
 description=Turnip is an open-source vulkan driver for devices with adreno GPUs.
