@@ -5,7 +5,7 @@ on:
 
 jobs:
   start_building:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v3
 
@@ -14,6 +14,7 @@ jobs:
         sudo sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
         sudo apt update
         sudo apt build-dep mesa -y
+        sudo apt install meson
 
     - name: Execute build script
       run: bash ./venus_builder.sh
