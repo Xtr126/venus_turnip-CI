@@ -83,7 +83,7 @@ build_lib_for_android(){
 		cpu_family = 'x86_64'
 		cpu = 'x86_64'
 		endian = 'little'
-	EOF
+EOF
 
 	ln -s \
 		/usr/include/xf86drm.h \
